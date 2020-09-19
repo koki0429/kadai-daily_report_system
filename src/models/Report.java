@@ -28,6 +28,39 @@ import javax.persistence.Table;
 })
 @Entity
 public class Report {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id" , nullable = false)
+    private Employee employee;
+
+    @Column(name = "report_date" , nullable = false)
+    private Date report_date;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Column(name = "title" , length = 255 , nullable = false)
+    private String title;
+
+    @Lob
+    @Column(name = "content" , nullable = false)
+    private String content;
+
+    @Column(name = "created_at" , nullable = false)
+    private Timestamp created_at;
+
+    @Column(name = "updated_at" , nullable = false)
+    private Timestamp updated_at;
+
     public Integer getId() {
         return id;
     }
@@ -75,38 +108,4 @@ public class Report {
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
-
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id" , nullable = false)
-    private Employee employee;
-
-    @Column(name = "report_date" , nullable = false)
-    private Date report_date;
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    @Column(name = "title" , length = 255 , nullable = false)
-    private String title;
-
-    @Lob
-    @Column(name = "content" , nullable = false)
-    private String content;
-
-    @Column(name = "created_at" , nullable = false)
-    private Timestamp created_at;
-
-    @Column(name = "updated_at" , nullable = false)
-    private Timestamp updated_at;
-
 }
