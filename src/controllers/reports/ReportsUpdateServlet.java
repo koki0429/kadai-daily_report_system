@@ -48,7 +48,7 @@ public class ReportsUpdateServlet extends HttpServlet {
             r.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
             List<String> errors = ReportValidator.validate(r);
-            if(errors.size() >0){
+            if(errors.size() > 0){
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
