@@ -3,6 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
+    <c:if test="${flush != null}">
+        <div id="flush_success">
+            <c:out value="${flush}"></c:out>
+        </div>
+    </c:if>
         <c:choose>
             <c:when test="${report != null}">
                 <h2>日報　詳細ページ</h2>
@@ -35,6 +40,73 @@
                                 <fmt:formatDate value="${report.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </td>
                         </tr>
+                        <tr>
+                            <th>リアクション</th>
+                                 <c:choose>
+                                     <c:when test="${sessionScope.login_employee.id == report.employee.id}">
+                                       <td>
+                                         <button>👍</button>:${reaction_nums1}&nbsp;
+                                         <button>🎉</button>:${reaction_nums2}&nbsp;
+                                         <button>❓</button>:${reaction_nums3}&nbsp;
+                                         <button>😭</button>:${reaction_nums4}&nbsp;
+                                         <button>🤗</button>:${reaction_nums5}&nbsp;
+                                       </td>
+                                     </c:when>
+                                     <c:when test="${reaction_num == 0}">
+                                      <td>
+                                         <form style="display: inline" method="POST" action="<c:url value='/reports/reaction?reaction_flag=1&id=${report.id}' />"><button>👍</button>:${reaction_nums1}&nbsp;</form>
+                                         <form style="display: inline" method="POST" action="<c:url value='/reports/reaction?reaction_flag=2&id=${report.id}' />"><button>🎉</button>:${reaction_nums2}&nbsp;</form>
+                                         <form style="display: inline" method="POST" action="<c:url value='/reports/reaction?reaction_flag=3&id=${report.id}' />"><button>❓</button>:${reaction_nums3}&nbsp;</form>
+                                         <form style="display: inline" method="POST" action="<c:url value='/reports/reaction?reaction_flag=4&id=${report.id}' />"><button>😭</button>:${reaction_nums4}&nbsp;</form>
+                                         <form style="display: inline" method="POST" action="<c:url value='/reports/reaction?reaction_flag=5&id=${report.id}' />"><button>🤗</button>:${reaction_nums5}&nbsp;</form>
+                                       </td>
+                                     </c:when>
+                                     <c:when test="${reaction_num != 0}">
+                                         <td>
+                                             <c:choose>
+                                                  <c:when test="${reaction.reaction_flag == 1}">
+                                                      <form style="display: inline" method="POST" action="<c:url value='/destroy?reaction_flag=1&id=${report.id}' />"><button>👍</button>&nbsp;:${reaction_nums1}&nbsp;</form>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <button id="bot">👍</button>:${reaction_nums1}&nbsp;
+                                                  </c:otherwise>
+                                             </c:choose>
+                                             <c:choose>
+                                                 <c:when test="${reaction.reaction_flag == 2}">
+                                                     <form style="display: inline" method="POST" action="<c:url value='/destroy?reaction_flag=2&id=${report.id}' />"><button>🎉</button>&nbsp;:${reaction_nums2}&nbsp;</form>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <button id="bot">🎉</button>:${reaction_nums2}&nbsp;
+                                                 </c:otherwise>
+                                             </c:choose>
+                                             <c:choose>
+                                                 <c:when test="${reaction.reaction_flag == 3}">
+                                                     <form style="display: inline" method="POST" action="<c:url value='/destroy?reaction_flag=3&id=${report.id}' />"><button>❓</button>&nbsp;:${reaction_nums3}&nbsp;</form>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <button id="bot">❓</button>:${reaction_nums3}&nbsp;
+                                                 </c:otherwise>
+                                             </c:choose>
+                                             <c:choose>
+                                                 <c:when test="${reaction.reaction_flag == 4}">
+                                                     <form style="display: inline" method="POST" action="<c:url value='/destroy?reaction_flag=4&id=${report.id}' />"><button>😭</button>&nbsp;:${reaction_nums4}&nbsp;</form>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <button id="bot">😭</button>:${reaction_nums4}&nbsp;
+                                                 </c:otherwise>
+                                             </c:choose>
+                                             <c:choose>
+                                                 <c:when test="${reaction.reaction_flag == 5}">
+                                                     <form style="display: inline" method="POST" action="<c:url value='/destroy?reaction_flag=5&id=${report.id}' />"><button>🤗</button>&nbsp;:${reaction_nums5}&nbsp;</form>
+                                                 </c:when>
+                                                 <c:otherwise>
+                                                     <button id="bot">🤗</button>:${reaction_nums5}&nbsp;
+                                                 </c:otherwise>
+                                             </c:choose>
+                                        </td>
+                                     </c:when>
+                                 </c:choose>
+                            </tr>
                     </tbody>
                 </table>
 

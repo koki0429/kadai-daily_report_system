@@ -36,7 +36,7 @@ h2{
 }
 
 h3{
-	font-size: larger;
+    font-size: larger;
 }
 
 li{
@@ -171,4 +171,14 @@ table#report_list .report_action{
 
 pre{
     font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
+}
+
+td.reactions{
+    display: inline-block;
+    width: 10px;
+    padding-left: 10px;
+}
+
+#bot{
+    opacity: 0.5;
 }
